@@ -244,7 +244,7 @@ def mostrar_visualizador_operacional():
 
         # --- NOVA SELEÇÃO: ROTA MATRIZ ---
         st.write("### 📅 Organização Semanal (Opcional)")
-        col_rota_matriz = st.selectbox("Coluna de Rota/Semana (Ex: 'Rota Matriz' com dados '1ªSem.1-Segunda'):", ["(Nenhuma)"] + colunas, index=tentar_achar_coluna(['rota matriz', 'semana', 'matriz','Rota Matriz']))
+        col_rota_matriz = st.selectbox("Coluna de Rota/Semana (Ex: 'Rota Matriz' com dados '1ªSem.1-Segunda'):", ["(Nenhuma)"] + colunas, index=tentar_achar_coluna(['Rota Matriz', 'semana', 'matriz','Rota Matriz']))
 
         st.divider()
 
