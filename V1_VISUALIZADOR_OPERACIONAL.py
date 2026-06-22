@@ -242,10 +242,25 @@ def mostrar_visualizador_operacional():
         idx_vol = tentar_achar_coluna(['vol', 'peso', 'qtde', 'quantidade', 'volume', 'litros'])
         col_vol_orig = c9.selectbox("Volume/Peso (Opcional):", ["(Nenhum)"] + colunas, index=idx_vol+1 if idx_vol else 0)
 
-        # --- NOVA SELEÇÃO: ROTA MATRIZ ---
+# --- NOVA SELEÇÃO: ROTA MATRIZ ---
         st.write("### 📅 Organização Semanal (Opcional)")
-        col_rota_matriz = st.selectbox("Coluna de Rota/Semana (Ex: 'Rota Matriz' com dados '1ªSem.1-Segunda'):", ["(Nenhuma)"] + colunas, index=tentar_achar_coluna(['Rota Matriz', 'semana', 'matriz','Rota Matriz']))
-
+        
+        # 1. Encontra a posição na lista original de colunas (removi a duplicidade do 'Rota Matriz')
+        indice_encontrado = tentar_achar_coluna(['Rota Matriz', 'semana', 'matriz'])
+        
+        # 2. Ajusta o índice. Se encontrou algo válido (>= 0), soma 1 para compensar o "(Nenhuma)".
+        # Caso contrário, define como 0 para selecionar o "(Nenhuma)" por padrão.
+        if indice_encontrado is not None and indice_encontrado >= 0:
+            indice_corrigido = indice_encontrado + 1
+        else:
+            indice_corrigido = 0
+            
+        # 3. Cria o selectbox com o índice ajustado
+        col_rota_matriz = st.selectbox(
+            "Coluna de Rota/Semana (Ex: 'Rota Matriz' com dados '1ªSem.1-Segunda'):", 
+            ["(Nenhuma)"] + colunas, 
+            index=indice_corrigido
+        )
         st.divider()
 
         if st.button("🚀 Confirmar Mapeamento e Gerar Mapa", type="primary", use_container_width=True):
